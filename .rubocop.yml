@@ -1,0 +1,38 @@
+# https://github.com/bbatsov/rubocop/blob/master/config/default.yml
+# https://github.com/bbatsov/rubocop/blob/master/config/disabled.yml
+# https://github.com/bbatsov/rubocop/blob/master/config/enabled.yml
+
+require:
+  - rubocop-rspec
+
+AllCops:
+  TargetRubyVersion: 2.5
+  Exclude:
+    - 'vendor/**/*'
+    - 'test/**/*'
+    - 'bin/console'
+    - 'bin/setup'
+    - 'Rakefile'
+    - 'lib/geetest_ruby_sdk/version.rb'
+
+# This cop checks whether the source file has a utf-8 encoding comment or not.
+# This check makes sense only for code that should support Ruby 1.9,
+# since in 2.0+ utf-8 is the default source file encoding.
+Style/Encoding:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  Enabled: false
+
+Style/MutableConstant:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
