@@ -1,3 +1,5 @@
+require 'rails'
+
 require 'logger'
 require 'geetest_ruby_sdk/version'
 require 'geetest_ruby_sdk/account'
@@ -23,5 +25,9 @@ module GeetestRubySdk
     def setup(geetest_id, geetest_key)
       GeetestRubySdk::Account.new geetest_id, geetest_key
     end
+  end
+
+  module Rails
+    class Engine < ::Rails::Engine; end
   end
 end

@@ -1,7 +1,6 @@
 require 'bundler/setup'
 require 'webmock/rspec'
 require 'geetest_ruby_sdk'
-require 'json'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
