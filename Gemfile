@@ -13,4 +13,5 @@ group :test do
   gem 'rubocop', require: false
   gem 'rubocop-rspec', require: false
   gem 'webmock'
+  gem 'timecop'
 end
