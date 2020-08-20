@@ -1,5 +1,3 @@
-require 'rails'
-
 require 'logger'
 require 'geetest_ruby_sdk/version'
 require 'geetest_ruby_sdk/account'
@@ -14,12 +12,8 @@ module GeetestRubySdk
   JSON_FORMAT = '1'
 
   class << self
-    attr_writer :logger
-
     def logger
-      @logger ||= Logger.new($stdout).tap do |log|
-        log.progname = name
-      end
+      ::Rails.logger
     end
 
     def setup(geetest_id, geetest_key)

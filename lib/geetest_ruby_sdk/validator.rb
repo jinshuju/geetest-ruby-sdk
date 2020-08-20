@@ -48,9 +48,12 @@ module GeetestRubySdk
     def request!(payload)
       response = RestClient.post "#{GeetestRubySdk::BASE_URL}#{VALIDATE_URL}", payload
       response_json = JSON.parse response.body
+      GeetestRubySdk.logger.info(
+        "Geetest validate model_probability of #{payload[:challenge]} => #{response_json['model_probability']}"
+      )
       response_json['seccode']
     rescue JSON::ParserError => e
-      GeetestRubySdk.logger.info "Register request failed for #{e.message}"
+      GeetestRubySdk.logger.info "Geetest validate request failed for #{e.message}"
       raise 'validate request failed'
     end
   end
