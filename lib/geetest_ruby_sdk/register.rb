@@ -35,7 +35,7 @@ module GeetestRubySdk
       secret = response_json['challenge'] + account.geetest_key
       @result.challenge = encrypt(secret)
       @result.success = 1
-    rescue RestClient::InternalServerError, JSON::ParserError => e
+    rescue RestClient::InternalServerError, RestClient::NotFound, JSON::ParserError => e
       GeetestRubySdk.logger.info "Geetest register request failed for #{e.message}, fail back to outage mode"
       failback_process
     end
