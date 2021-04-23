@@ -1,5 +1,6 @@
 require 'bundler/setup'
 require 'webmock/rspec'
+require 'timecop'
 require 'geetest_ruby_sdk'
 
 RSpec.configure do |config|
@@ -11,5 +12,9 @@ RSpec.configure do |config|
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
+  end
+
+  config.before(:each) do
+    GeetestRubySdk.logger = Logger.new(STDOUT)
   end
 end
