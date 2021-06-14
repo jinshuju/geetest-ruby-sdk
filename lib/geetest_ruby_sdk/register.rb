@@ -22,7 +22,7 @@ module GeetestRubySdk
       options = { json_format: GeetestRubySdk::JSON_FORMAT }.merge options.transform_keys(&:to_sym)
       @response = request! payload, options
       on_remote_mode
-    rescue RestClient::InternalServerError, RestClient::NotFound, JSON::ParserError => e
+    rescue *GeetestRubySdk.exceptions_to_degraded_mode => e
       GeetestRubySdk.logger.info "Geetest register request failed for #{e.message}, fall back to degraded mode"
       on_degraded_mode
     end
