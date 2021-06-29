@@ -31,6 +31,14 @@ module GeetestRubySdk
     def setup(geetest_id, geetest_key)
       GeetestRubySdk::Account.new geetest_id, geetest_key
     end
+
+    def exceptions_to_degraded_mode
+      @exceptions_to_degraded_mode ||= [
+        RestClient::InternalServerError,
+        RestClient::NotFound,
+        JSON::ParserError
+      ]
+    end
   end
 
   module Rails
