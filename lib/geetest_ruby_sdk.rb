@@ -2,7 +2,6 @@
 
 require 'logger'
 require 'rest-client'
-require 'rails'
 
 require 'geetest_ruby_sdk/concerns/degraded_mode'
 require 'geetest_ruby_sdk/account'
@@ -25,7 +24,8 @@ module GeetestRubySdk
     attr_writer :logger
 
     def logger
-      @logger || ::Rails.logger
+      @logger = ::Rails.logger if @logger.nil? && defined?(::Rails)
+      @logger ||= Logger.new
     end
 
     def setup(geetest_id, geetest_key)
@@ -41,7 +41,9 @@ module GeetestRubySdk
     end
   end
 
-  module Rails
-    class Engine < ::Rails::Engine; end
+  if defined?(::Rails)
+    class Engine < ::Rails::Engine
+      # Rails -> use app/assets directory.
+    end
   end
 end
