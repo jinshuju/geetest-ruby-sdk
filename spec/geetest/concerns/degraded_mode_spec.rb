@@ -1,7 +1,7 @@
-RSpec.describe 'GeetestRubySdk::DegradedMode' do
-  let(:account) { GeetestRubySdk::Account.new('geetest_id', 'geetest_key') }
-  let(:register) { GeetestRubySdk::Register.new(account: account) }
-  let(:validator) { GeetestRubySdk::Validator.new(account: account) }
+RSpec.describe 'Geetest::DegradedMode' do
+  let(:account) { Geetest::Account.new('geetest_id', 'geetest_key') }
+  let(:register) { Geetest::Register.new(account: account) }
+  let(:validator) { Geetest::Validator.new(account: account) }
 
   describe '#degraded_challenge' do
     it 'length is 32' do

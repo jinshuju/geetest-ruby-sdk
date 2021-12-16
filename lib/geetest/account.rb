@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module GeetestRubySdk
-  # This class is used internally by GeetestRubySdk to send the request
+module Geetest
+  # This class is used internally by Geetest to send the request
   # Mandatory parameters to initialize an instance:
   # * :geetest_id
   # * :geetest_key
@@ -25,7 +25,7 @@ module GeetestRubySdk
     def initialize(geetest_id, geetest_key, **options)
       @geetest_id = geetest_id
       @geetest_key = geetest_key
-      @digest_mod = options.fetch(:digest_mod, GeetestRubySdk::DEFAULT_DIGEST_MOD)
+      @digest_mod = options.fetch(:digest_mod, Geetest::DEFAULT_DIGEST_MOD)
     end
 
     def register(**options)

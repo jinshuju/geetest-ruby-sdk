@@ -1,4 +1,4 @@
-RSpec.describe GeetestRubySdk::Encryptor do
+RSpec.describe Geetest::Encryptor do
   describe '#to_challenge' do
     it 'encrypts with md5' do
       challenge = described_class.encrypt('abc').with('secret').by('md5').to_challenge

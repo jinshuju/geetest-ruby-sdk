@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module GeetestRubySdk
+module Geetest
   # Create and validate a challenge under degraded model
   # When a degraded_challenge is created, it will keep valid at least in 21.6 minutes and no more than 43.2 minutes
   # 21.6 = 36 * 36 / 60 (that means the last 2 chars of base36 timestamp)

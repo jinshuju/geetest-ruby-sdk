@@ -1,9 +1,5 @@
-RSpec.describe GeetestRubySdk::Account do
+RSpec.describe Geetest::Account do
   let(:geetest_account) { described_class.new('geetest_id', 'geetest_key') }
-
-  it 'has a version number' do
-    expect(GeetestRubySdk::VERSION).not_to be nil
-  end
 
   it 'returns geetest id' do
     expect(geetest_account.geetest_id).to eq 'geetest_id'

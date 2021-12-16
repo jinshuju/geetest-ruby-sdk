@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module GeetestRubySdk
-  # This class is used internally by GeetestRubySdk to validate by request or local
+module Geetest
+  # This class is used internally by Geetest to validate by request or local
   # => valid?: to send a post request to geetest service and return if a geetest is valid
   # parameters
   # * :challenge
@@ -41,14 +41,14 @@ module GeetestRubySdk
 
     def remote_seccode_valid?(challenge, validate, seccode, **options)
       payload = { challenge: challenge, validate: validate, seccode: seccode }
-      options = { json_format: GeetestRubySdk::JSON_FORMAT }.merge options.transform_keys(&:to_sym)
+      options = { json_format: Geetest::JSON_FORMAT }.merge options.transform_keys(&:to_sym)
       @response = request! payload, options
 
       Encryptor.encrypt(seccode).with(account.geetest_key).by(digest_mod).eq? @response['seccode']
     end
 
     def request!(payload, options = {})
-      response = RestClient.post "#{GeetestRubySdk::BASE_URL}#{VALIDATE_URL}", payload.merge(options)
+      response = RestClient.post "#{Geetest::BASE_URL}#{VALIDATE_URL}", payload.merge(options)
       JSON.parse response.body
     end
   end
