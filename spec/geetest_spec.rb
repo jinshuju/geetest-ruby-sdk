@@ -19,22 +19,22 @@ RSpec.describe Geetest do
 
   describe "#setup" do
     it "succeeds when given a config hash" do
-      expect(described_class.setup(config)).to be_a Geetest::Account
+      expect(described_class.setup(config)).to be_a Geetest::V3::Account
     end
 
     it "succeeds when given a channel_name and a config hash" do
-      expect(described_class.setup(config.merge(channel: :normal))).to be_a Geetest::Account
+      expect(described_class.setup(config.merge(channel: :normal))).to be_a Geetest::V3::Account
     end
 
     it "succeeds when given channel_name and append config hash by #with" do
-      expect(described_class.setup(:normal).with(config)).to be_a Geetest::Account
+      expect(described_class.setup(:normal).with(config)).to be_a Geetest::V3::Account
     end
   end
 
   describe "#channels" do
     context 'if setup without channel_name' do
       it 'returns an account instance' do
-        expect(described_class.setup(config)).to be_a Geetest::Account
+        expect(described_class.setup(config)).to be_a Geetest::V3::Account
       end
 
       it 'can get the account instance by #channel' do
@@ -46,7 +46,7 @@ RSpec.describe Geetest do
     context 'if setup without channel_name' do
       context 'if setup without channel_name' do
         it 'returns an account instance' do
-          expect(described_class.setup(config)).to be_a Geetest::Account
+          expect(described_class.setup(config)).to be_a Geetest::V3::Account
         end
 
         it 'can get the account instance by #channel' do
@@ -58,7 +58,7 @@ RSpec.describe Geetest do
       context 'if setup with channel_name' do
         it 'returns an account instance' do
           account_for_login = described_class.setup(login_config)
-          expect(account_for_login).to be_a Geetest::Account
+          expect(account_for_login).to be_a Geetest::V3::Account
         end
 
         it 'can get the account instance by channel_name' do

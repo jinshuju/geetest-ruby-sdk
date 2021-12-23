@@ -3,32 +3,44 @@
 require 'logger'
 require 'rest-client'
 
-require 'geetest/concerns/degraded_mode'
-require 'geetest/account'
+require 'geetest/v3/concerns/degraded_mode'
+require 'geetest/v3/account'
 require 'geetest/encryptor'
-require 'geetest/register'
-require 'geetest/validator'
+require 'geetest/v3/register'
+require 'geetest/v3/validator'
 
-# This module is used internally by GeetestRubySdk to set up account
-# and write logs
-# Mandatory parameters to set up an instance:
-# * :geetest_id
-# * :geetest_key
+require 'geetest/v4/account'
+
 module Geetest
-  BASE_URL = 'http://api.geetest.com'
-  JSON_FORMAT = '1'
-  DEFAULT_DIGEST_MOD = 'md5'
-
   class << self
     attr_writer :logger
 
+    # Set up a geetest account and keep it in +Geetest.channels+
+    # @param [String, Symbol, Hash] channel_or_config
+    #
+    # @option opts [String] id Geetest CaptchaId
+    # @option opts [String] key Geetest CaptchaKey
+    # @option opts [String, Symbol] channel (:default) Which channel to store the instance
+    # @option opts [String, Symbol] :version (:V3) Which Captcha version to use
+    #
+    # other available opts depend on which Captcha version used
+    #   eg. digest_mod, api_server
+    #
+    # Set up by a hash config:
+    #   Geetest.setup(id: 'geetest_id', key: 'geetest_key')
+    #   Geetest.channel
+    #
+    # Set up by a hash config with channel name:
+    #   Geetest.setup(id: 'geetest_id', key: 'geetest_key', channel: 'login')
+    #   Geetest.channel(:login)
+    #
+    # Set up a channel by another way:
+    #   Geetest.setup('login').with(id: 'geetest_id', key: 'geetest_key')
+    #   Geetest.channel(:login)
+    #
     def setup(channel_or_config)
       if channel_or_config.is_a? Hash
-        config = channel_or_config.transform_keys(&:to_sym)
-        channel_name = config.delete(:channel) || :default
-        geetest_id = config.delete(:id)
-        geetest_key = config.delete(:key)
-        channels[channel_name.to_sym] = Geetest::Account.new(geetest_id, geetest_key, **config)
+        build_channel(channel_or_config)
       else
         Object.new.tap do |unready_channel|
           unready_channel.define_singleton_method(:with) { |opts| Geetest.setup opts.merge(channel: channel_or_config) }
@@ -36,13 +48,18 @@ module Geetest
       end
     end
 
-    def channel(channel_name = :default)
-      channels[channel_name.to_sym]
+    def build_channel(config)
+      config = config.transform_keys(&:to_sym)
+      channel_name = config.delete(:channel) || :default
+      captcha_version = config.delete(:version) || :V3
+      captcha_id = config.delete(:id)
+      captcha_key = config.delete(:key)
+      account_klass = Geetest.const_get("#{captcha_version.upcase}::Account", false)
+      channels[channel_name.to_sym] = account_klass.new(captcha_id, captcha_key, **config)
     end
 
-    def logger
-      @logger = ::Rails.logger if @logger.nil? && defined?(::Rails)
-      @logger ||= Logger.new(STDERR)
+    def channel(channel_name = :default)
+      channels[channel_name.to_sym]
     end
 
     def channels
@@ -55,6 +72,10 @@ module Geetest
         RestClient::NotFound,
         JSON::ParserError
       ]
+    end
+
+    def logger
+      @logger ||= Logger.new(STDERR)
     end
   end
 end

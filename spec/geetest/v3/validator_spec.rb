@@ -1,5 +1,5 @@
-RSpec.describe Geetest::Validator do
-  let(:geetest_account) { Geetest::Account.new('geetest_id', 'geetest_key') }
+RSpec.describe Geetest::V3::Validator do
+  let(:geetest_account) { Geetest::V3::Account.new('geetest_id', 'geetest_key') }
   let(:geetest_validator) { described_class.new(account: geetest_account) }
   let(:challenge) { 'challenge' }
   let(:validate) { OpenSSL::Digest::MD5.hexdigest('geetest_keygeetestchallenge') }
