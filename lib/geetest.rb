@@ -3,9 +3,10 @@
 require 'logger'
 require 'rest-client'
 
+require 'geetest/encryptor'
+
 require 'geetest/v3/concerns/degraded_mode'
 require 'geetest/v3/account'
-require 'geetest/encryptor'
 require 'geetest/v3/register'
 require 'geetest/v3/validator'
 
