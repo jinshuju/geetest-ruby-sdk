@@ -1,7 +1,7 @@
-RSpec.describe GeetestRubySdk::Register do
-  let(:geetest_account) { GeetestRubySdk::Account.new('geetest_id', 'geetest_key') }
+RSpec.describe Geetest::V3::Register do
+  let(:geetest_account) { Geetest::V3::Account.new('geetest_id', 'geetest_key') }
   let(:geetest_register) { described_class.new(account: geetest_account) }
-  let(:payload) { { gt: geetest_account.geetest_id, json_format: 1 } }
+  let(:payload) { { gt: geetest_account.captcha_id, json_format: 1 } }
   let(:response_headers) { { 'Content-Type' => 'application/octet-stream; charset=binary' } }
 
   describe 'failed request' do

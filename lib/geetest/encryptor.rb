@@ -1,7 +1,7 @@
 require 'openssl'
 
-module GeetestRubySdk
-  # This class is used internally by GeetestRubySdk to encrypt message
+module Geetest
+  # This class is used internally by Geetest to encrypt message
   # It prefers to be used with chain methods
   #
   #  Encryptor.encrypt(string).with(secret).by(digest_mod).to_s
