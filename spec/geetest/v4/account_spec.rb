@@ -42,6 +42,10 @@ RSpec.describe Geetest::V4::Account do
       expect(geetest_account.validate?(geetest_data)).to be false
     end
 
+    it 'returns false without exception if params is blank' do
+      expect(geetest_account.validate?({})).to be false
+    end
+
     it 'return true if request geetest api fail' do
       stub_request(:post, validate_url).with(body:request_payload).to_return(
         body: 'Internal Server Error', status: 500

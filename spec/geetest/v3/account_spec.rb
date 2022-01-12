@@ -53,5 +53,9 @@ RSpec.describe Geetest::V3::Account do
       validate = OpenSSL::Digest::MD5.hexdigest('geetest_keygeetestchallenge')
       expect(geetest_account.validate?(challenge: 'challenge', validate: validate, seccode: 'seccode')).to be true
     end
+
+    it 'returns false without exception if params is blank' do
+      expect(geetest_account.validate?({})).to be false
+    end
   end
 end

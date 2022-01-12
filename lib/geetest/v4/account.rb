@@ -16,7 +16,9 @@ module Geetest
         @api_server = URI.parse options.fetch(:api_server, DEFAULT_API_SERVER)
       end
 
-      def validate?(lot_number:, captcha_output:, pass_token:, gen_time:, **options)
+      def validate?(lot_number: nil, captcha_output: nil, pass_token: nil, gen_time: nil, **options)
+        return false unless lot_number && captcha_output && pass_token && gen_time
+
         payload = {
           lot_number: lot_number,
           captcha_output: captcha_output,

@@ -37,7 +37,7 @@ module Geetest
         Register.new(account: self).register(options)
       end
 
-      def validate?(challenge:, validate:, seccode:, **options)
+      def validate?(challenge: nil, validate: nil, seccode: nil, **options)
         Validator.new(account: self).valid?(challenge, validate, seccode, options)
       end
     end
