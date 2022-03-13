@@ -71,6 +71,7 @@ module Geetest
       @exceptions_to_degraded_mode ||= [
         RestClient::InternalServerError,
         RestClient::NotFound,
+        RestClient::RequestTimeout,
         JSON::ParserError
       ]
     end

@@ -75,6 +75,7 @@ RSpec.describe Geetest do
     it 'includes three default exceptions' do
       expect(described_class.exceptions_to_degraded_mode).to include(RestClient::InternalServerError)
       expect(described_class.exceptions_to_degraded_mode).to include(RestClient::NotFound)
+      expect(described_class.exceptions_to_degraded_mode).to include(RestClient::RequestTimeout)
       expect(described_class.exceptions_to_degraded_mode).to include(JSON::ParserError)
     end
 

@@ -16,6 +16,7 @@ RSpec.describe GeetestRubySdk do
     it 'includes three default exceptions' do
       expect(GeetestRubySdk.exceptions_to_degraded_mode).to include(RestClient::InternalServerError)
       expect(GeetestRubySdk.exceptions_to_degraded_mode).to include(RestClient::NotFound)
+      expect(GeetestRubySdk.exceptions_to_degraded_mode).to include(RestClient::RequestTimeout)
       expect(GeetestRubySdk.exceptions_to_degraded_mode).to include(JSON::ParserError)
     end
 
