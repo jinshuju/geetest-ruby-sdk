@@ -69,10 +69,11 @@ module Geetest
 
     def exceptions_to_degraded_mode
       @exceptions_to_degraded_mode ||= [
+        ::SystemCallError, # includes ::Errno::EINVAL, ::Errno::ECONNRESET, ::Errno::ECONNREFUSED, ::Errno::ETIMEDOUT, and more
+        JSON::ParserError,
         RestClient::InternalServerError,
         RestClient::NotFound,
-        RestClient::RequestTimeout,
-        JSON::ParserError
+        RestClient::RequestTimeout
       ]
     end
 

@@ -4,13 +4,13 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'logger'
-gem 'openssl'
+gem 'openssl', '~> 2.2'
 gem 'rest-client'
 
 group :test do
   gem 'rake', '~> 12.0'
   gem 'rspec', '~> 3.0'
-  gem 'rubocop', require: false
+  gem 'rubocop', '~> 1.25', require: false
   gem 'rubocop-rspec', require: false
   gem 'webmock'
   gem 'timecop'

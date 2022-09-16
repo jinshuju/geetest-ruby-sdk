@@ -5,30 +5,31 @@ RSpec.describe Geetest::V3::Register do
   let(:response_headers) { { 'Content-Type' => 'application/octet-stream; charset=binary' } }
 
   describe 'failed request' do
-    it 'returns success 0 when status is 500' do
-      stub_request(:get, 'http://api.geetest.com/register.php').with(query: payload).to_return(
-        status: [500, 'Internal Server Error'], headers: response_headers
-      )
-      expect(geetest_register.register[:success]).to eq 0
-    end
-
-    it 'returns challenge when status is 500' do
+    it 'returns challenge and set success to 0 when response status is 500' do
       stub_request(:get, 'http://api.geetest.com/register.php').with(query: payload).to_return(
         status: [500, 'Internal Server Error'], headers: response_headers
       )
       expect(geetest_register.register[:challenge].size).to eq 32
+      expect(geetest_register.register[:success]).to eq 0
     end
 
     it 'returns challenge and set success to 0 when response body not json' do
       stub_request(:get, 'http://api.geetest.com/register.php').with(query: payload).to_return(
         status: [200, 'Ok'], headers: response_headers, body: 'invalid response'
       )
+      expect(geetest_register.register[:challenge].size).to eq 32
       expect(geetest_register.register[:success]).to eq 0
     end
 
-    it 'raises an register failed error when status is 403' do
+    it 'returns challenge and set success to 0 when a SystemCallError raised' do
+      stub_request(:get, 'http://api.geetest.com/register.php').with(query: payload).and_raise ::Errno::ECONNRESET
+      expect(geetest_register.register[:challenge].size).to eq 32
+      expect(geetest_register.register[:success]).to eq 0
+    end
+
+    it 'raises an register failed error when response status is 403' do
       stub_request(:get, 'http://api.geetest.com/register.php').with(query: payload).to_return(
-        status: [403, 'Forbidden'], headers: response_headers
+      status: [403, 'Forbidden'], headers: response_headers
       )
       expect { geetest_register.register }.to raise_error RestClient::Forbidden
     end

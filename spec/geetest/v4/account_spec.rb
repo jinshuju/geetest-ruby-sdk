@@ -53,6 +53,11 @@ RSpec.describe Geetest::V4::Account do
       expect(geetest_account.validate?(geetest_data)).to be true
     end
 
+    it 'return true if a SystemCallError raised' do
+      stub_request(:post, validate_url).with(body:request_payload).and_raise ::Errno::ECONNRESET
+      expect(geetest_account.validate?(geetest_data)).to be true
+    end
+
     it 'returns false if request geetest api fail and exception not in degraded_mode' do
       stub_request(:post, validate_url).with(body: request_payload).to_return(
         body: 'Forbidden', status: 403

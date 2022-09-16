@@ -3,15 +3,13 @@ require_relative 'lib/geetest_ruby_sdk/version'
 Gem::Specification.new do |spec|
   spec.name = 'geetest_ruby_sdk'
   spec.version = GeetestRubySdk::VERSION
-  spec.authors = ['Yuehao Hua']
-  spec.email = ['huayuehao@jinshuju.net']
+  spec.authors = ['Yuehao Hua', 'Yii Chou']
+  spec.email = ['huayuehao@jinshuju.net, zhouyi@jinshuju,net']
 
   spec.summary = 'Ruby version of Geetest SDK'
   spec.homepage = 'https://github.com/jinshuju/geetest-ruby-sdk'
   spec.license = 'MIT'
-  spec.required_ruby_version = Gem::Requirement.new('>= 2.3.0')
-
-  spec.metadata['allowed_push_host'] = 'https://github.com/jinshuju/geetest-ruby-sdk'
+  spec.required_ruby_version = Gem::Requirement.new('>= 2.5.0')
 
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = 'https://github.com/jinshuju/geetest-ruby-sdk'
