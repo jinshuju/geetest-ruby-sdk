@@ -33,12 +33,17 @@ module Geetest
         @digest_mod = options.fetch(:digest_mod, Account::DEFAULT_DIGEST_MOD)
       end
 
-      def register(**options)
-        Register.new(account: self).register(options)
+      def register(options = {})
+        Register.new(account: self).register(**options)
       end
 
-      def validate?(challenge: nil, validate: nil, seccode: nil, **options)
-        Validator.new(account: self).valid?(challenge, validate, seccode, options)
+      def validate?(data = {})
+        options = data.transform_keys(&:to_sym)
+        challenge = options.delete(:challenge)
+        validate = options.delete(:validate)
+        seccode = options.delete(:seccode)
+
+        Validator.new(account: self).valid?(challenge, validate, seccode, **options)
       end
     end
   end

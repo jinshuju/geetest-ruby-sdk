@@ -4,7 +4,6 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'logger'
-gem 'openssl', '~> 2.2'
 gem 'rest-client'
 
 group :test do
